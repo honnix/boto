@@ -507,7 +507,7 @@ class EC2Connection(AWSQueryConnection):
         return self.get_object('DescribeInstanceStatus', params,
                                InstanceStatusSet, verb='POST')
 
-    def run_instances(self, image_id, min_count=1, max_count=1,
+    def run_instances(self, image_id, display_name = None, min_count=1, max_count=1,
                       key_name=None, security_groups=None,
                       user_data=None, addressing_type=None,
                       instance_type='m1.small', placement=None,
@@ -524,6 +524,9 @@ class EC2Connection(AWSQueryConnection):
 
         :type image_id: string
         :param image_id: The ID of the image to run
+
+        :type display_name: string
+        :param display_name: The display name of the instance
 
         :type min_count: int
         :param min_count: The minimum number of instances to launch
@@ -620,6 +623,8 @@ class EC2Connection(AWSQueryConnection):
         params = {'ImageId':image_id,
                   'MinCount':min_count,
                   'MaxCount': max_count}
+        if display_name:
+            params['DisplayName'] = display_name
         if key_name:
             params['KeyName'] = key_name
         if security_group_ids:

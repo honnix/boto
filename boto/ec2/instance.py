@@ -92,6 +92,7 @@ class Instance(TaggedEC2Object):
         self.instance_class = None
         self.launch_time = None
         self.image_id = None
+        self.display_name = None
         self.placement = None
         self.kernel = None
         self.ramdisk = None
@@ -146,6 +147,8 @@ class Instance(TaggedEC2Object):
             self.id = value
         elif name == 'imageId':
             self.image_id = value
+        elif name == 'displayName':
+            self.display_name = value
         elif name == 'dnsName' or name == 'publicDnsName':
             self.dns_name = value           # backwards compatibility
             self.public_dns_name = value
